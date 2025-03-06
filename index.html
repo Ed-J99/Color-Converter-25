@@ -18,32 +18,46 @@
             border-radius: 10px;
             margin-top: 20px;
         }
+        input {
+            font-size: 18px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .color-box {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 5px;
+            border: 2px solid transparent; /* 기본 테두리 */
+        }
+        .black-border { border: 2px solid #000000 !important; } /* 검정 테두리 */
     </style>
 </head>
 <body>
 
     <h1>CC25 숫자 변환기</h1>
-    <input type="number" id="numberInput" placeholder="숫자 입력">
+    <input type="number" id="numberInput" placeholder="숫자를 입력하세요">
     <button onclick="convertCC25()">변환</button>
 
     <div id="result" class="output"></div>
 
     <script>
-        const firstColors = ["백", "적", "흑", "황", "자"];  // 1~5, 6~10, 11~15, 16~20, 21~25
-        const secondColors = ["청", "등", "녹", "갈", "회"];  // 1, 2, 3, 4, 5
+        const firstColors = ["백", "적", "흑", "황", "자"];
+        const secondColors = ["청", "등", "녹", "갈", "회"];
 
-        // 색상별 스타일 지정
         const colorStyles = {
-            "백": { background: "#FFFFFF", text: "#000000" },
-            "적": { background: "#FF0000", text: "#FFFFFF" },
-            "흑": { background: "#000000", text: "#FFFFFF" },
-            "황": { background: "#FFD700", text: "#000000" },
-            "자": { background: "#800080", text: "#FFFFFF" },
-            "청": { background: "#0000FF", text: "#FFFFFF" },
-            "등": { background: "#FFA500", text: "#000000" },
-            "녹": { background: "#008000", text: "#FFFFFF" },
-            "갈": { background: "#8B4513", text: "#FFFFFF" },
-            "회": { background: "#808080", text: "#FFFFFF" }
+            "백": { background: "#FFFFFF", text: "#000000", border: true },
+            "적": { background: "#FF0000", text: "#FFFFFF", border: false },
+            "흑": { background: "#000000", text: "#FFFFFF", border: false },
+            "황": { background: "#FFD700", text: "#000000", border: false },
+            "자": { background: "#800080", text: "#FFFFFF", border: false },
+            "청": { background: "#0000FF", text: "#FFFFFF", border: false },
+            "등": { background: "#FFA500", text: "#000000", border: false },
+            "녹": { background: "#008000", text: "#FFFFFF", border: false },
+            "갈": { background: "#8B4513", text: "#FFFFFF", border: false },
+            "회": { background: "#808080", text: "#FFFFFF", border: false }
         };
 
         function convertCC25() {
@@ -54,24 +68,22 @@
                 return;
             }
 
-            let remainder = num % 25;
-            if (remainder === 0) {
-                document.getElementById("result").innerHTML = `${num} → 
-                    <span style="background:${colorStyles["자"].background}; color:${colorStyles["자"].text}; padding:5px 10px; border-radius:5px;">자</span> 
-                    <span style="background:${colorStyles["회"].background}; color:${colorStyles["회"].text}; padding:5px 10px; border-radius:5px;">회</span>`;
-                return;
-            }
-
+            let remainder = (num - 1) % 25 + 1;
             let firstIndex = Math.floor((remainder - 1) / 5);
             let secondIndex = (remainder - 1) % 5;
 
-            let firstColor = firstColors[firstIndex];  
+            let firstColor = firstColors[firstIndex];
             let secondColor = secondColors[secondIndex];
 
+            let firstStyle = colorStyles[firstColor];
+            let secondStyle = colorStyles[secondColor];
+
             let resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = `${num} → 
-                <span style="background:${colorStyles[firstColor].background}; color:${colorStyles[firstColor].text}; padding:5px 10px; border-radius:5px;">${firstColor}</span> 
-                <span style="background:${colorStyles[secondColor].background}; color:${colorStyles[secondColor].text}; padding:5px 10px; border-radius:5px;">${secondColor}</span>`;
+            resultDiv.innerHTML = `
+                ${num} →
+                <span class="color-box ${firstStyle.border ? 'black-border' : ''}" style="background:${firstStyle.background}; color:${firstStyle.text};">${firstColor}</span>
+                <span class="color-box" style="background:${secondStyle.background}; color:${secondStyle.text};">${secondColor}</span>
+            `;
         }
     </script>
 
