@@ -24,22 +24,35 @@
             width: 200px;
             text-align: center;
         }
+        button {
+            font-size: 20px;
+            padding: 12px 24px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
         .color-box {
             display: inline-block;
             padding: 5px 10px;
             border-radius: 5px;
             font-weight: bold;
             margin: 5px;
-            border: 2px solid transparent; /* 기본 테두리 */
+            border: 2px solid transparent;
         }
-        .black-border { border: 2px solid #000000 !important; } /* 검정 테두리 */
+        .black-border { border: 2px solid #000000 !important; }
     </style>
 </head>
 <body>
 
     <h1>CC25 숫자 변환기</h1>
-    <input type="number" id="numberInput" placeholder="숫자를 입력하세요">
-    <button onclick="convertCC25()">변환</button>
+    <input type="number" id="numberInput" placeholder="숫자를 입력하세요" onclick="clearInput()">
+    <button onclick="convertCC25()">검색</button>
 
     <div id="result" class="output"></div>
 
@@ -84,6 +97,10 @@
                 <span class="color-box ${firstStyle.border ? 'black-border' : ''}" style="background:${firstStyle.background}; color:${firstStyle.text};">${firstColor}</span>
                 <span class="color-box" style="background:${secondStyle.background}; color:${secondStyle.text};">${secondColor}</span>
             `;
+        }
+
+        function clearInput() {
+            document.getElementById("numberInput").value = "";
         }
     </script>
 
