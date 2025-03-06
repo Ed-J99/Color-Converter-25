@@ -55,11 +55,16 @@
             }
 
             let remainder = num % 25;
-            let firstIndex = Math.floor(remainder / 5);
-            let secondIndex = remainder % 5;
 
-            let firstColor = firstColors[firstIndex];
-            let secondColor = secondIndex > 0 ? secondColors[secondIndex - 1] : "회";
+            // 25의 배수일 때 "자회" 고정
+            let firstColor, secondColor;
+            if (remainder === 0) {
+                firstColor = "자";
+                secondColor = "회";
+            } else {
+                firstColor = firstColors[Math.floor(remainder / 5)];
+                secondColor = secondColors[remainder % 5 - 1] || "회";
+            }
 
             let resultDiv = document.getElementById("result");
             resultDiv.innerHTML = `${num} → <span style="background:${colorStyles[firstColor].background}; color:${colorStyles[firstColor].text}; padding:5px 10px; border-radius:5px;">${firstColor}</span> <span style="background:${colorStyles[secondColor].background}; color:${colorStyles[secondColor].text}; padding:5px 10px; border-radius:5px;">${secondColor}</span>`;
