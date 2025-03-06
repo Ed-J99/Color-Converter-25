@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8"
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CC25 변환기</title>
     <style>
@@ -96,3 +96,13 @@
                 ${num} →
                 <span class="color-box ${firstStyle.border ? 'black-border' : ''}" style="background:${firstStyle.background}; color:${firstStyle.text};">${firstColor}</span>
                 <span class="color-box" style="background:${secondStyle.background}; color:${secondStyle.text};">${secondColor}</span>
+            `;
+        }
+
+        function clearInput() {
+            document.getElementById("numberInput").value = "";
+        }
+    </script>
+
+</body>
+</html>
