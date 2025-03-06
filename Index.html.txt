@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC25 변환기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .output {
+            display: inline-block;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CC25 숫자 변환기</h1>
+    <input type="number" id="numberInput" placeholder="숫자 입력">
+    <button onclick="convertCC25()">변환</button>
+
+    <div id="result" class="output"></div>
+
+    <script>
+        const firstColors = ["백", "적", "흑", "황", "자"];  // 0, 5, 10, 15, 20
+        const secondColors = ["청", "등", "녹", "갈", "회"];  // 1, 2, 3, 4, 5
+
+        // 각 색상의 배경 및 글씨색 설정
+        const colorStyles = {
+            "백": { background: "#FFFFFF", text: "#000000" },
+            "적": { background: "#FF0000", text: "#FFFFFF" },
+            "흑": { background: "#000000", text: "#FFFFFF" },
+            "황": { background: "#FFD700", text: "#000000" },
+            "자": { background: "#800080", text: "#FFFFFF" },
+            "청": { background: "#0000FF", text: "#FFFFFF" },
+            "등": { background: "#FFA500", text: "#000000" },
+            "녹": { background: "#008000", text: "#FFFFFF" },
+            "갈": { background: "#8B4513", text: "#FFFFFF" },
+            "회": { background: "#808080", text: "#FFFFFF" }
+        };
+
+        function convertCC25() {
+            let num = document.getElementById("numberInput").value;
+            num = parseInt(num);
+            if (isNaN(num)) {
+                alert("숫자를 입력하세요!");
+                return;
+            }
+
+            let remainder = num % 25;
+            let firstIndex = Math.floor(remainder / 5);
+            let secondIndex = remainder % 5;
+
+            let firstColor = firstColors[firstIndex];
+            let secondColor = secondIndex > 0 ? secondColors[secondIndex - 1] : "회";
+
+            let resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `${num} → <span style="background:${colorStyles[firstColor].background}; color:${colorStyles[firstColor].text}; padding:5px 10px; border-radius:5px;">${firstColor}</span> <span style="background:${colorStyles[secondColor].background}; color:${colorStyles[secondColor].text}; padding:5px 10px; border-radius:5px;">${secondColor}</span>`;
+        }
+    </script>
+
+</body>
+</html>
